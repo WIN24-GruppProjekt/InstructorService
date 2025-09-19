@@ -5,7 +5,7 @@ using Domain.Entities;
 
 namespace Application.Services;
 
-public class InstructorService(IInstructorRepository instructorRepository)
+public class InstructorService(IInstructorRepository instructorRepository) : IInstructorService
 {
     private readonly IInstructorRepository _instructorRepository = instructorRepository;
 
