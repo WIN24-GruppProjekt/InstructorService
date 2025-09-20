@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Dependency Injection
 builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
-builder.Services.AddScoped<InstructorService>();
+builder.Services.AddScoped<IInstructorService, InstructorService>();
 
 // CORS
 builder.Services.AddCors(options =>

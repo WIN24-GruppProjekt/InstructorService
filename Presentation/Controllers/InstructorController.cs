@@ -1,14 +1,14 @@
 using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class InstructorController(InstructorService instructorService) : ControllerBase
+public class InstructorController(IInstructorService instructorService) : ControllerBase
 {
-    private readonly InstructorService _instructorService = instructorService;
+    private readonly IInstructorService _instructorService = instructorService;
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<InstructorDto>>> GetAllInstructors()
