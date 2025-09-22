@@ -30,7 +30,7 @@ public class InstructorController(IInstructorService instructorService) : Contro
 
     [HttpPost]
     public async Task<ActionResult<InstructorDto>> CreateInstructor(
-        [FromBody] InstructorDto instructorDto
+        [FromBody] CreateInstructorDto createInstructorDto
     )
     {
         // VALIDATION - This is the core of Issue #9
@@ -54,7 +54,9 @@ public class InstructorController(IInstructorService instructorService) : Contro
 
         try
         {
-            var createdInstructor = await _instructorService.CreateInstructorAsync(instructorDto);
+            var createdInstructor = await _instructorService.CreateInstructorAsync(
+                createInstructorDto
+            );
             return CreatedAtAction(
                 nameof(GetInstructor),
                 new { id = createdInstructor.Id },
@@ -70,7 +72,7 @@ public class InstructorController(IInstructorService instructorService) : Contro
     [HttpPut("{id}")]
     public async Task<ActionResult<InstructorDto>> UpdateInstructor(
         Guid id,
-        [FromBody] InstructorDto instructorDto
+        [FromBody] UpdateInstructorDto updateInstructorDto
     )
     {
         // VALIDATION - This is the core of Issue #9
@@ -96,7 +98,7 @@ public class InstructorController(IInstructorService instructorService) : Contro
         {
             var updatedInstructor = await _instructorService.UpdateInstructorAsync(
                 id,
-                instructorDto
+                updateInstructorDto
             );
             if (updatedInstructor == null)
             {

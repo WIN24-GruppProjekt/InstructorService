@@ -21,27 +21,30 @@ public class InstructorService(IInstructorRepository instructorRepository) : IIn
         return instructor == null ? null : MapToDto(instructor);
     }
 
-    public async Task<InstructorDto> CreateInstructorAsync(InstructorDto instructorDto)
+    public async Task<InstructorDto> CreateInstructorAsync(CreateInstructorDto createInstructorDto)
     {
-        var entity = MapToEntity(instructorDto);
+        var entity = MapToEntity(createInstructorDto);
         var createdEntity = await _instructorRepository.CreateAsync(entity);
         return MapToDto(createdEntity);
     }
 
-    public async Task<InstructorDto?> UpdateInstructorAsync(Guid id, InstructorDto instructorDto)
+    public async Task<InstructorDto?> UpdateInstructorAsync(
+        Guid id,
+        UpdateInstructorDto updateInstructorDto
+    )
     {
         var existingInstructor = await _instructorRepository.GetByIdAsync(id);
         if (existingInstructor == null)
             return null;
 
         // Update properties
-        existingInstructor.FirstName = instructorDto.FirstName;
-        existingInstructor.LastName = instructorDto.LastName;
-        existingInstructor.Email = instructorDto.Email;
-        existingInstructor.Phone = instructorDto.Phone;
-        existingInstructor.Location = instructorDto.Location;
-        existingInstructor.ProfilePicture = instructorDto.ProfilePicture;
-        existingInstructor.IsActive = instructorDto.IsActive;
+        existingInstructor.FirstName = updateInstructorDto.FirstName;
+        existingInstructor.LastName = updateInstructorDto.LastName;
+        existingInstructor.Email = updateInstructorDto.Email;
+        existingInstructor.Phone = updateInstructorDto.Phone;
+        existingInstructor.Location = updateInstructorDto.Location;
+        existingInstructor.ProfilePicture = updateInstructorDto.ProfilePicture;
+        existingInstructor.IsActive = updateInstructorDto.IsActive;
 
         var updatedEntity = await _instructorRepository.UpdateAsync(existingInstructor);
         return MapToDto(updatedEntity);
@@ -68,7 +71,7 @@ public class InstructorService(IInstructorRepository instructorRepository) : IIn
         };
     }
 
-    private static InstructorEntity MapToEntity(InstructorDto dto)
+    private static InstructorEntity MapToEntity(CreateInstructorDto dto)
     {
         return new InstructorEntity
         {
