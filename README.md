@@ -56,4 +56,47 @@ The application uses SQLite for data storage. The database file (`instructor.db`
 
 ## Testing
 
-Use the Swagger UI in development mode or any HTTP client to test the API endpoints.
+### Using Swagger UI
+
+When running in development mode, navigate to `/swagger` to access the interactive API documentation. You can test creating an instructor directly in the browser:
+
+1. Expand the `POST /api/instructor` endpoint
+2. Click "Try it out"
+3. Use this example JSON in the request body:
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "+1-555-123-4567",
+  "location": "New York",
+  "profilePicture": "https://example.com/profile.jpg",
+  "isActive": true
+}
+```
+
+### Using curl
+
+To create an instructor using curl from the command line:
+
+```bash
+curl -X POST "https://localhost:5001/api/instructor" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@example.com",
+    "phone": "+1-555-987-6543",
+    "location": "Los Angeles",
+    "profilePicture": "https://example.com/jane-profile.jpg",
+    "isActive": true
+  }'
+```
+
+**Note:** The `profilePicture` field is optional. All other fields are required and have validation rules:
+
+- First/Last name: 2-50 characters
+- Email: Must be a valid email format
+- Phone: Must be a valid phone number format
+- Location: Maximum 100 characters
